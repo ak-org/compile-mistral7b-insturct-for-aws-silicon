@@ -1,0 +1,12 @@
+{
+    "createdOn": "01/09/2024 13:28:47",
+    "runtime": "python",
+    "model": {
+      "modelName": "mistralai/Mistral-7B-Instruct-v0.1",
+      "handler": "inf2_handler1.py",
+      "modelVersion": "1.0",
+      "requirementsFile": "requirements.txt",
+      "configFile": "model-config.yaml"
+    },
+    "archiverVersion": "0.8.2"
+  }
