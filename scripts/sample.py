@@ -11,7 +11,7 @@ import sys
 model_id = 'mistralai/Mistral-7B-Instruct-v0.1'
 if len(sys.argv) > 1 and sys.argv[1] == "split":
     model_cpu = AutoModelForCausalLM.from_pretrained(model_id)
-    save_pretrained_split(model_cpu, f'{model_id}-split')
+    save_pretrained_split(model_cpu, f'{model_id}-split2')
 else:
     # Set sharding strategy for GQA to be shard over heads
     neuron_config = NeuronConfig(
@@ -20,9 +20,9 @@ else:
     )
 
     # Create and compile the Neuron model
-    model_neuron = MistralForSampling.from_pretrained(f'{model_id}-split', 
+    model_neuron = MistralForSampling.from_pretrained(f'{model_id}-split2', 
                                                     batch_size=1, 
-                                                    tp_degree=2, 
+                                                    tp_degree=8, 
                                                     n_positions=256, 
                                                     amp='bf16', 
                                                     neuron_config=neuron_config)

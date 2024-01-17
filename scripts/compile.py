@@ -9,7 +9,7 @@ import sys
 
 # we will pin cores to 2 for inf2.xlarge 
 
-os.environ['NEURON_RT_NUM_CORES'] = '2'
+os.environ['NEURON_RT_NUM_CORES'] = '8'
 #os.environ["NEURON_CC_FLAGS"] = "-O3"  ## for best perf
 version = '2.16.0'
 model_id = 'mistralai/Mistral-7B-Instruct-v0.1'
@@ -19,8 +19,6 @@ amp = 'bf16'
 n_positions = 256
 
 if sys.argv[1] == "compile":
-    print('Current compilation is bugging. Exiting...')
-    exit(-1)
     start = time.time()
     # Set sharding strategy for GQA to be shard over heads
     neuron_config = NeuronConfig(
@@ -79,4 +77,4 @@ elif sys.argv[1] == "infer":
     generated_sequences = [tokenizer.decode(seq) for seq in generated_sequences]
     print(f'\ngenerated sequences {generated_sequences} in {elapsed} seconds\n')
 else:
-    print(f'\n**Missing paramter: Specify compiler or infer**\n')
+    print(f'\n**Missing paramter: Specify compile or infer**\n')
