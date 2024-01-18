@@ -28,11 +28,7 @@ def new_inference_calls(endpoint_name):
     
     
 if __name__ == "__main__":
-    boto3_session=boto3.session.Session(
-        aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'], 
-        aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'], 
-        aws_session_token=os.environ['AWS_SESSION_TOKEN'],
-        region_name="us-east-1")
+    boto3_session=boto3.session.Session(region_name="us-east-1")
     smr = boto3.client('sagemaker-runtime')
     # Change the value to reflect endpoint name in your env
     if len(sys.argv) != 2:

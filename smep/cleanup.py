@@ -6,11 +6,7 @@ from datetime import datetime
 import sys 
 
 aws_region='us-east-1'
-boto3_session=boto3.session.Session(
-    aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'], 
-    aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'], 
-    aws_session_token=os.environ['AWS_SESSION_TOKEN'],
-    region_name=aws_region)
+boto3_session=boto3.session.Session(region_name=aws_region)
 sm = boto3.client('sagemaker')
 
 sm.delete_model(ModelName=sys.argv[1])

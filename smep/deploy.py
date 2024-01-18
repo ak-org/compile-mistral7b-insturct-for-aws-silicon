@@ -6,11 +6,7 @@ import os
 MODEL_NAME="smep-inf2-mistral-7b-instruct"
 aws_region='us-east-1'
 model_id = 'mistralai/Mistral-7B-Instruct-v0.1'
-boto3_session=boto3.session.Session()
-    #aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'], 
-    #aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'], 
-    #aws_session_token=os.environ['AWS_SESSION_TOKEN'],
-    #region_name=aws_region
+boto3_session=boto3.session.Session(region_name=aws_region)
 smr = boto3.client('sagemaker-runtime')
 sm = boto3.client('sagemaker')
 role = 'arn:aws:iam::102048127330:role/service-role/SageMaker-ak-datascientist'  # execution role for the endpoint
@@ -28,7 +24,7 @@ prefix=f'torchserve/{release}'
 output_path = f"s3://{bucket_name}/{prefix}"
 
 print(f'account={account}, region={aws_region}, role={role}, output_path={output_path}')
-s3_uri = f'{output_path}/model_store/{model_id}/' #  "s3://sagemaker-us-east-1-102048127330/torchserve/model_store/mistralai/Mistral-7B-Instruct-v0.1/"
+s3_uri = f'{output_path}/model_store/{model_id}/' #  "s3://gai-model-artifacts/torchserve/model_store/mistralai/Mistral-7B-Instruct-v0.1/"
 print("======================================")
 print(f'Will load artifacts from {s3_uri}')
 print("======================================")
