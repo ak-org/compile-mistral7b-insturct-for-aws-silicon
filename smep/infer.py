@@ -14,8 +14,8 @@ def run_infer(endpoint_name, body):
 
 def new_inference_calls(endpoint_name):
     body = {
-            "inputs": """[INST]It is a beautiful day for [/INST]""",
-            "parameters": {'n_positions': 512, 'top_p': 0.9, 'temperature': 0.9}
+            "inputs": """[INST]Write a long poem about Generative AI[/INST]""",
+            "parameters": {'n_positions': 1024, 'top_p': 0.9, 'temperature': 0.9}
         }
     start = time.time()
     results = run_infer(endpoint_name, json.dumps(body).encode('utf-8'))
