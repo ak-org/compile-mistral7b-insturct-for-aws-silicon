@@ -11,7 +11,7 @@ smr = boto3.client('sagemaker-runtime')
 sm = boto3.client('sagemaker')
 role = 'arn:aws:iam::102048127330:role/service-role/SageMaker-ak-datascientist'  # execution role for the endpoint
 #role = sagemaker.get_execution_role()
-instance_type = "ml.inf2.8xlarge"
+instance_type = "ml.inf2.24xlarge"
 endpoint_name = sagemaker.utils.name_from_base(MODEL_NAME)
 
 sess = sagemaker.session.Session(boto3_session, 
@@ -19,7 +19,7 @@ sess = sagemaker.session.Session(boto3_session,
                                  sagemaker_runtime_client=smr)  # sagemaker session for interacting with different AWS APIs
 account = sess.account_id()  # account_id of the current SageMaker Studio environment
 bucket_name = 'gai-model-artifacts'
-release='2.16.0'
+release='2.16.1'
 prefix=f'torchserve/{release}'
 output_path = f"s3://{bucket_name}/{prefix}"
 
@@ -46,7 +46,10 @@ model = Model(
     image_uri=image_uri,
     role=role,
     sagemaker_session=sess,
-    env={"TS_INSTALL_PY_DEP_PER_MODEL": "true"},
+    env={
+        "TS_INSTALL_PY_DEP_PER_MODEL": "true",
+        "NEURON_CORES": '12'
+    },
 )
 print(model)
 
@@ -54,8 +57,8 @@ model.deploy(
     initial_instance_count=1,
     instance_type=instance_type,
     endpoint_name=endpoint_name,
-    volume_size=512, # increase the size to store large model
-    model_data_download_timeout=3600, # increase the timeout to download large model
+    volume_size=256, # increase the size to store large model
+    model_data_download_timeout=1800, # increase the timeout to download large model
     container_startup_health_check_timeout=600, # increase the timeout to load large model,
     wait=False,
 )

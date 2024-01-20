@@ -40,7 +40,7 @@ aws ecr get-login-password --region $regionname | docker login --username AWS --
 
 # Build the docker image locally with the image name and then push it to ECR
 # with the full name.
-docker build  --no-cache -t ${reponame} . --build-arg BASE_IMAGE=${baseimage}
+docker build  -t ${reponame} . --build-arg BASE_IMAGE=${baseimage}
 docker tag ${reponame} ${fullname}
 
 # Get the login command from ECR in order to pull down the SageMaker PyTorch image

@@ -1,24 +1,21 @@
-import io
 import json
 import boto3
-import os
-from datetime import datetime
 import time 
 import sys 
 
         
 def run_infer(endpoint_name, body):
     resp = smr.invoke_endpoint(EndpointName=endpoint_name,
-                                                    Body=body,
-                                                    ContentType="application/json")
+                                Body=body,
+                                ContentType="application/json")
     results = resp['Body'].read().decode(errors="ignore")
     return results
 
 
 def new_inference_calls(endpoint_name):
     body = {
-            "inputs": """[INST] Can you write me a poem about steamed hams?[/INST]""",
-            "parameters": {'n_positions': 320, 'top_p': 0.9, 'temperature': 0.9}
+            "inputs": """[INST]It is a beautiful day for [/INST]""",
+            "parameters": {'n_positions': 512, 'top_p': 0.9, 'temperature': 0.9}
         }
     start = time.time()
     results = run_infer(endpoint_name, json.dumps(body).encode('utf-8'))

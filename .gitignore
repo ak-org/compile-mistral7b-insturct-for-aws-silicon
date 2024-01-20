@@ -4,3 +4,4 @@ Mistral-7B-Instruct-v0.1-split/
 neuronx_artifacts
 all_metrics.csv
 log-neuron-cc.txt
+2.16.0/*

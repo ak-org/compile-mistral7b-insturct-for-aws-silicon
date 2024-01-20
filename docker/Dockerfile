@@ -6,8 +6,8 @@ RUN apt-get update && apt-get upgrade -y
 RUN pip install --upgrade pip
 RUN pip install --upgrade \
                 transformers-neuronx==0.9.474 \
-                neuronx-cc==2.12.54.0 \
+                neuronx-cc==2.12.68.0 \
                 torch-neuronx==2.0.0.2.0.1b0 \
                 --extra-index-url=https://pip.repos.neuron.amazonaws.com
-RUN pip install --upgrade torchserve==0.9.0 sentencepiece==0.1.99
+RUN pip install --upgrade tokenizers==0.15.0 transformers==4.36.2 torchserve==0.9.0 sentencepiece==0.1.99
 ENV install_py_dep_per_model=true
