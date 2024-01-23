@@ -2,7 +2,7 @@ import boto3
 import sagemaker
 from sagemaker import Model
 import os
-
+TP_DEGREE = 12 # 2 or 12 or 24
 MODEL_NAME="smep-inf2-mistral-7b-instruct"
 aws_region='us-east-1'
 model_id = 'mistralai/Mistral-7B-Instruct-v0.1'
@@ -11,7 +11,15 @@ smr = boto3.client('sagemaker-runtime')
 sm = boto3.client('sagemaker')
 role = 'arn:aws:iam::102048127330:role/service-role/SageMaker-ak-datascientist'  # execution role for the endpoint
 #role = sagemaker.get_execution_role()
-instance_type = "ml.inf2.24xlarge"
+if TP_DEGREE == 12:
+    instance_type = "ml.inf2.24xlarge"
+elif TP_DEGREE == 24:
+    instance_type = "ml.inf2.48xlarge"
+elif TP_DEGREE == 2:
+    instance_type = "ml.inf2.8xlarge"
+else:
+    print('Invalid TP DEGREE value. Must be 2, 12 or 24.')
+    exit(-1)
 endpoint_name = sagemaker.utils.name_from_base(MODEL_NAME)
 
 sess = sagemaker.session.Session(boto3_session, 
@@ -48,7 +56,7 @@ model = Model(
     sagemaker_session=sess,
     env={
         "TS_INSTALL_PY_DEP_PER_MODEL": "true",
-        "NEURON_CORES": '12'
+        "NEURON_CORES": f'{TP_DEGREE}'
     },
 )
 print(model)

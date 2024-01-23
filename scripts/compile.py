@@ -7,13 +7,11 @@ import time
 import os 
 import sys 
 
-# we will pin cores to 12 for inf24.xlarge 
-
 tp_degree = int(sys.argv[2])
 #os.environ["NEURON_CC_FLAGS"] = "-O3"  ## for best perf
 version = '2.16.1'
 model_id = 'mistralai/Mistral-7B-Instruct-v0.1'
-model_dir = f"../{version}/model_store/{model_id}/{model_id}-split"
+model_dir = f"../{version}/model_store/{model_id}/Mistral-7B-Instruct-v0.1-split"
 model_compiled_dir = f"../{version}/model_store/{model_id}/neuronx_artifacts-{tp_degree}"
 amp = 'bf16'
 if tp_degree == 2:
@@ -64,7 +62,7 @@ elif sys.argv[1] == "infer":
     # construct a tokenizer and encode prompt text
     tokenizer = AutoTokenizer.from_pretrained(model_dir)
 
-    prompt2 = """[INST]It is a beautiful day for [/INST]"""
+    prompt2 = """[INST]What is your favorite condiment?[/INST]"""
     input_ids = tokenizer(prompt2, return_tensors='pt')
     # run inference with top-k sampling
     with torch.inference_mode():
