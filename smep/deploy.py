@@ -2,6 +2,7 @@ import boto3
 import sagemaker
 from sagemaker import Model
 import os
+
 TP_DEGREE = 12 # 2 or 12 or 24
 MODEL_NAME="smep-inf2-mistral-7b-instruct"
 aws_region='us-east-1'
