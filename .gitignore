@@ -5,3 +5,4 @@ neuronx_artifacts
 all_metrics.csv
 log-neuron-cc.txt
 2.16.0/*
+*.tar.gz
