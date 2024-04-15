@@ -14,5 +14,7 @@ model_download_path = snapshot_download(
     repo_id=model_name, 
     cache_dir=local_model_path, 
     allow_patterns=allow_patterns, 
-    token='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'
+    ## Replace token value with your own token from your HuggingFace Account
+    ## following token is invalid and will not work
+    token='hf_yESBvDcXMHlJqtRUOeDLspqicrHxxxxxx'
 )
