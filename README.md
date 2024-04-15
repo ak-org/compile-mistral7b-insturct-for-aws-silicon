@@ -1,6 +1,9 @@
 # Context
 This code repository shows how you can download a model from huggingface repository, compile it for `Neuronx` platform and deploy it as SageMaker Inference endpoint.
 
+# Pre-requisite
+You will need an EC2 instance of instance size **inf2.24xlarge** to run the code, specifically the model compilation code.
+
 ## Repository Structure
 | Directory Name | Purpose |
 |----------------|--------------------------------------------
